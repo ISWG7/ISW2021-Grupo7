@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
 import 'package:tp_isw/widgets/FormularioAny_Desc.dart';
+import 'package:tp_isw/widgets/Map.dart';
 
 class PedidoStepper extends StatefulWidget {
   const PedidoStepper({Key? key}) : super(key: key);
@@ -34,20 +35,20 @@ class _PedidoStepperState extends State<PedidoStepper> {
       formkey: formKeys[1],
       entityModel: entity,
     );
-    steps = [formdesc, formdesc2];
-  }
 
-  Widget content(int activeStep) {
-    switch (activeStep) {
-      case 0:
-        return steps[0];
-      default:
-        return Text("Error");
-    }
+    final map = Map();
+    steps = [formdesc, formdesc2, map];
   }
 
   int activeStep = 0; // Initial step set to 5.
   int upperBound = 3; // upperBound MUST BE total number of icons minus 1
+
+  Widget content(int activeStep) {
+    if (activeStep < upperBound) {
+      return steps[activeStep];
+    } else
+      return Text("Error");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,10 @@ class _PedidoStepperState extends State<PedidoStepper> {
           children: [
             IconStepper(
               nextButtonIcon: Icon(Icons.forward_outlined),
-              previousButtonIcon:Icon(Icons.forward_outlined ,textDirection: TextDirection.rtl,) ,
+              previousButtonIcon: Icon(
+                Icons.forward_outlined,
+                textDirection: TextDirection.rtl,
+              ),
               stepReachedAnimationEffect: Curves.bounceOut,
               stepReachedAnimationDuration: Duration(seconds: 1),
               stepColor: Colors.amber.shade200,
