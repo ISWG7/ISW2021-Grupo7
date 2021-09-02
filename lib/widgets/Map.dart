@@ -36,12 +36,12 @@ class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
     LatLng currentLatLng;
-
+    initLocationService();
     if (_currentLocation != null) {
       currentLatLng =
           LatLng(_currentLocation!.latitude!, _currentLocation!.longitude!);
     } else {
-      currentLatLng = LatLng(0, 0);
+      currentLatLng =LatLng(_currentLocation!.latitude!, _currentLocation!.longitude!);
     }
 
     return  Column(

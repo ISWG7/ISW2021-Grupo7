@@ -19,7 +19,7 @@ class FormularioAnythingDesc extends StatelessWidget {
       decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Que quiere llevar ',
-          labelText: 'Descripcion'),
+          labelText: 'Descripcion \* '),
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Ingrese una descripcion';

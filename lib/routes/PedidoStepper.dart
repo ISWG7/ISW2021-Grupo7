@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
 import 'package:tp_isw/widgets/FormularioAny_Desc.dart';
+import 'package:tp_isw/widgets/FormularioAny_Direccion.dart';
 import 'package:tp_isw/widgets/Map.dart';
 
 class PedidoStepper extends StatefulWidget {
@@ -31,20 +32,23 @@ class _PedidoStepperState extends State<PedidoStepper> {
       formkey: formKeys[0],
       entityModel: entity,
     );
-    final formdesc2 = FormularioAnythingDesc(
+    final formdirec =FormularioAnythingDireccion(
       formkey: formKeys[1],
       entityModel: entity,
     );
-
+    final formdirec2 =FormularioAnythingDireccion(
+      formkey: formKeys[1],
+      entityModel: entity,
+    );
     final map = Map();
-    steps = [formdesc, formdesc2, map];
+    steps = [formdesc, formdirec, formdirec2,map];
   }
 
   int activeStep = 0; // Initial step set to 5.
   int upperBound = 3; // upperBound MUST BE total number of icons minus 1
 
   Widget content(int activeStep) {
-    if (activeStep < upperBound) {
+    if (activeStep < steps.length) {
       return steps[activeStep];
     } else
       return Text("Error");
