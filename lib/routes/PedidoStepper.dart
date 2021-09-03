@@ -18,6 +18,7 @@ class _PedidoStepperState extends State<PedidoStepper> {
 
   List<GlobalKey<FormState>> formKeys = [
     GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
     GlobalKey<FormState>()
   ];
 
@@ -37,7 +38,7 @@ class _PedidoStepperState extends State<PedidoStepper> {
       entityModel: entity,
     );
     final formdirec2 =FormularioAnythingDireccion(
-      formkey: formKeys[1],
+      formkey: formKeys[2],
       entityModel: entity,
     );
     final map = Map();

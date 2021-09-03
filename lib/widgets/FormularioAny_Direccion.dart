@@ -1,11 +1,12 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
+import 'package:tp_isw/widgets/ComboCiudad.dart';
 
 class FormularioAnythingDireccion extends StatelessWidget {
   PedidoAnyEntity entityModel;
   GlobalKey<FormState> formkey;
+
+  var ciudad = "Cordoba";
 
   FormularioAnythingDireccion(
       {required this.entityModel, required this.formkey});
@@ -13,6 +14,8 @@ class FormularioAnythingDireccion extends StatelessWidget {
   final TextEditingController _referenciaController = TextEditingController();
   final TextEditingController _calleController = TextEditingController();
   final TextEditingController _numeroController = TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,23 +47,29 @@ class FormularioAnythingDireccion extends StatelessWidget {
           labelText: 'Numeración *'),
     );
 
-    Form form = Form(
+    final CiudadCombo ciudadCombo =
+        CiudadCombo(onChange: (newvalue) => this.ciudad = newvalue, dropdownValue: this.ciudad,);
+
+    final Form form = Form(
       autovalidateMode: AutovalidateMode.disabled,
       key: formkey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          ciudadCombo,
           Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Flexible(flex: 4,
+              Flexible(
+                flex: 4,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: calle,
                 ),
               ),
-              Flexible( flex: 1,
+              Flexible(
+                flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: numero,
