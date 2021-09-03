@@ -2,27 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
 import 'package:tp_isw/widgets/ComboCiudad.dart';
 
-class FormularioAnythingDireccion extends StatelessWidget {
+class FormularioAnythingDireccion extends StatefulWidget {
   PedidoAnyEntity entityModel;
   GlobalKey<FormState> formkey;
 
-  var ciudad = "Cordoba";
-
-  FormularioAnythingDireccion(
-      {required this.entityModel, required this.formkey});
-
+  String ciudad = "Cordoba";
   final TextEditingController _referenciaController = TextEditingController();
   final TextEditingController _calleController = TextEditingController();
   final TextEditingController _numeroController = TextEditingController();
 
+  FormularioAnythingDireccion(
+      {required this.entityModel, required this.formkey});
 
+  @override
+  _FormularioAnythingDireccionState createState() => _FormularioAnythingDireccionState();
+}
+
+class _FormularioAnythingDireccionState extends State<FormularioAnythingDireccion> {
 
   @override
   Widget build(BuildContext context) {
+
     Widget referencia = TextFormField(
       keyboardType: TextInputType.multiline,
       maxLines: 3,
-      controller: _referenciaController,
+      controller: widget._referenciaController,
       decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Casa de 2 pisos roja',
@@ -31,7 +35,7 @@ class FormularioAnythingDireccion extends StatelessWidget {
 
     Widget calle = TextFormField(
       keyboardType: TextInputType.streetAddress,
-      controller: _calleController,
+      controller: widget._calleController,
       decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Av. 19 de Abril',
@@ -40,7 +44,7 @@ class FormularioAnythingDireccion extends StatelessWidget {
 
     Widget numero = TextFormField(
       keyboardType: TextInputType.number,
-      controller: _numeroController,
+      controller: widget._numeroController,
       decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: '505',
@@ -48,11 +52,13 @@ class FormularioAnythingDireccion extends StatelessWidget {
     );
 
     final CiudadCombo ciudadCombo =
-        CiudadCombo(onChange: (newvalue) => this.ciudad = newvalue, dropdownValue: this.ciudad,);
+        CiudadCombo(onChange: (newvalue) => this.setState(() {
+          widget.ciudad = newvalue;
+        }), dropdownValue: widget.ciudad ,);
 
     final Form form = Form(
       autovalidateMode: AutovalidateMode.disabled,
-      key: formkey,
+      key: widget.formkey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
