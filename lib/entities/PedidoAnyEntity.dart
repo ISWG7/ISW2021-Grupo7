@@ -6,8 +6,9 @@ part 'PedidoAnyEntity.g.dart';
 
 class PedidoAnyEntity {
   String? descripcion;
+  String? pathImagen;
 
-  PedidoAnyEntity({this.descripcion});
+  PedidoAnyEntity({this.descripcion , this.pathImagen});
 
   factory PedidoAnyEntity.fromJson(Map<String,dynamic> data) => _$PedidoAnyEntityFromJson(data);
 

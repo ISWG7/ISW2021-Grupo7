@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
+import 'package:tp_isw/widgets/CardFormaPago.dart';
 import 'package:tp_isw/widgets/FormularioAny_Desc.dart';
 import 'package:tp_isw/widgets/FormularioAny_Direccion.dart';
-import 'package:tp_isw/widgets/Map.dart';
+import 'package:tp_isw/widgets/HoraEntrega.dart';
 
 class PedidoStepper extends StatefulWidget {
   const PedidoStepper({Key? key}) : super(key: key);
@@ -13,47 +14,34 @@ class PedidoStepper extends StatefulWidget {
 }
 
 class _PedidoStepperState extends State<PedidoStepper> {
-  // TODO ESTE HARDCODE WACALA
-  // Key de los forms
+  // Lista con los Pasos del stepper
+  late List<Widget> steps;
 
+  // Key de los forms, usado para validar
   List<GlobalKey<FormState>> formKeys = [
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
     GlobalKey<FormState>()
   ];
 
-  bool stepperCompleted = false;
-  late List<Widget> steps;
-  PedidoAnyEntity entity = new PedidoAnyEntity();
+  // Variables donde voy guardando el progreso del stepper
+
+
+  // Modelo de datos , en donde voy a guardar los cambios
+  // se lo mando a los formularios para que lo completen;
+  // al final lo persisto
+  final PedidoAnyEntity entity = new PedidoAnyEntity();
 
   @override
   void initState() {
     super.initState();
-    final formdesc = FormularioAnythingDesc(
-      formkey: formKeys[0],
-      entityModel: entity,
-    );
-    final formdirec =FormularioAnythingDireccion(
-      formkey: formKeys[1],
-      entityModel: entity,
-    );
-    final formdirec2 =FormularioAnythingDireccion(
-      formkey: formKeys[2],
-      entityModel: entity,
-    );
-    final map = Map();
-    steps = [formdesc, formdirec, formdirec2,map];
+    // inicializo los Pasos de mi stepper
+    crearWidgetsSteps();
   }
 
-  int activeStep = 0; // Initial step set to 5.
-  int upperBound = 3; // upperBound MUST BE total number of icons minus 1
-
-  Widget content(int activeStep) {
-    if (activeStep < steps.length) {
-      return steps[activeStep];
-    } else
-      return Text("Error");
-  }
+  int activeStep = 0; // El step activo;
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +65,11 @@ class _PedidoStepperState extends State<PedidoStepper> {
               activeStepColor: Colors.pink.shade300,
               icons: [
                 Icon(Icons.description_outlined),
-                Icon(Icons.motorcycle_outlined),
-                Icon(Icons.motorcycle_outlined),
-                Icon(Icons.motorcycle_outlined),
+                Icon(Icons.location_on_outlined),
+                Icon(Icons.home_outlined),
+                Icon(Icons.map),
+                Icon(Icons.payment_outlined),
+                Icon(Icons.access_time_outlined)
               ],
               direction: Axis.horizontal,
               activeStep: activeStep,
@@ -95,37 +85,46 @@ class _PedidoStepperState extends State<PedidoStepper> {
         ),
       ),
     );
+  }
 
-    // return Column(
-    //   children: [
-    //     Expanded(
-    //       child: Stepper(
-    //         steps: steps,
-    //         currentStep: currentStep,
-    //         controlsBuilder: (context, {onStepCancel, onStepContinue}) {
-    //           return Padding(
-    //             padding: const EdgeInsets.all(14.0),
-    //             child: Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //               children: <Widget>[
-    //                 TextButton(
-    //                   onPressed: onStepCancel,
-    //                   child: const Text('VOLVER'),
-    //                 ),
-    //                 ElevatedButton(
-    //                   onPressed: onStepContinue,
-    //                   child: const Text('SIGUIENTE'),
-    //                 ),
-    //               ],
-    //             ),
-    //           );
-    //         },
-    //         onStepContinue: next,
-    //         onStepTapped: (step) => goTo(step),
-    //         onStepCancel: cancel,
-    //       ),
-    //     )
-    //   ],
-    // );
+  // METODOS AUXILIARES
+
+  Widget content(int activeStep) {
+    if (activeStep < steps.length) {
+      return steps[activeStep];
+    } else
+      return Text("Error");
+  }
+
+  void asdf() {}
+
+  void crearWidgetsSteps() {
+    final formdesc = FormularioAnythingDesc(
+      formkey: formKeys[0],
+      entityModel: entity,
+    );
+    final formdirec = FormularioAnythingDireccion(
+      formkey: formKeys[1],
+      entityModel: entity,
+      title: "¿ A donde lo vamos a buscar ?",
+    );
+    final formdirec2 = FormularioAnythingDireccion(
+      formkey: formKeys[2],
+      entityModel: entity,
+      title: "¿ A donde lo entregamos ?",
+    );
+
+    final Widget formaPago =
+        FormaPago(entityModel: entity, formkey: formKeys[3],);
+
+    final Widget horaPicker = HoraEntrega();
+
+    steps = [
+      formdesc,
+      formdirec,
+      formdirec2,
+      formaPago,
+      horaPicker
+    ];
   }
 }

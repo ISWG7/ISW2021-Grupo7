@@ -5,6 +5,7 @@ import 'package:tp_isw/widgets/ComboCiudad.dart';
 class FormularioAnythingDireccion extends StatefulWidget {
   PedidoAnyEntity entityModel;
   GlobalKey<FormState> formkey;
+  String title;
 
   String ciudad = "Cordoba";
   final TextEditingController _referenciaController = TextEditingController();
@@ -12,7 +13,7 @@ class FormularioAnythingDireccion extends StatefulWidget {
   final TextEditingController _numeroController = TextEditingController();
 
   FormularioAnythingDireccion(
-      {required this.entityModel, required this.formkey});
+      {required this.entityModel, required this.formkey , required this.title});
 
   @override
   _FormularioAnythingDireccionState createState() => _FormularioAnythingDireccionState();
@@ -62,20 +63,28 @@ class _FormularioAnythingDireccionState extends State<FormularioAnythingDireccio
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          ciudadCombo,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 35),
+            child: Text(widget.title, style:Theme.of(context).textTheme.headline4 ,),
+          ),
+
           Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Flexible( flex: 2 , child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ciudadCombo,
+              )),
               Flexible(
-                flex: 4,
+                flex: 5,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: calle,
                 ),
               ),
               Flexible(
-                flex: 1,
+                flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: numero,
