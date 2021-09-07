@@ -1,0 +1,1 @@
+Para información del contenido del repositorio leer el documento ISW-G7-EstructuraYReglasDeNombrado.pdf que se encuentra en la raíz del repositorio.
