@@ -1,23 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
+import 'package:tp_isw/helpers/PedidoAnyController.dart';
 
 class FormularioAnythingDesc extends StatefulWidget {
-  PedidoAnyEntity entityModel;
-  GlobalKey<FormState> formkey;
+  final PedidoAnyController controller;
+  final PedidoAnyEntity entityModel;
   FormularioAnythingDesc(
-      {Key? key, required this.formkey, required this.entityModel})
+      {Key? key, required this.entityModel, required this.controller})
       : super(key: key);
 
   @override
-  _FormularioAnythingDescState createState() => _FormularioAnythingDescState();
+  FormularioAnythingDescState createState() =>
+      FormularioAnythingDescState(controller);
 }
 
-class _FormularioAnythingDescState extends State<FormularioAnythingDesc> {
+class FormularioAnythingDescState extends State<FormularioAnythingDesc> {
+  FormularioAnythingDescState(PedidoAnyController _controller) {
+    _controller.validate = validate;
+    _controller.save = save;
+  }
   final TextEditingController _descController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  XFile? imagen = XFile("");
+  XFile? imagen;
   bool previewVisible = false;
+
+  @override
+  void initState() {
+    var path = widget.entityModel.pathImagen;
+    if (path == null || path == "")
+      imagen = XFile("");
+    else {
+      imagen = XFile(path);
+      previewVisible = true;
+    }
+    _descController.text = widget.entityModel.descripcion ?? "";
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(FormularioAnythingDesc oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    widget.controller.validate = validate;
+    widget.controller.save = save;
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +68,10 @@ class _FormularioAnythingDescState extends State<FormularioAnythingDesc> {
     );
     final Widget agregarFotoButton = Padding(
       padding: const EdgeInsets.all(16.0),
-      child: ElevatedButton(
-          onPressed: seleccionarArchivo, child: Text("Agregar una foto")),
+      child: ElevatedButton.icon(
+          onPressed: seleccionarArchivo,
+          icon: Icon(Icons.add_a_photo),
+          label: Text("Agregar una foto")),
     );
 
     Widget preview = Visibility(
@@ -66,7 +96,7 @@ class _FormularioAnythingDescState extends State<FormularioAnythingDesc> {
 
     Form form = Form(
       autovalidateMode: AutovalidateMode.disabled,
-      key: widget.formkey,
+      key: formKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -93,5 +123,15 @@ class _FormularioAnythingDescState extends State<FormularioAnythingDesc> {
       imagen = picked;
       previewVisible = true;
     });
+  }
+
+  bool validate() {
+    // Solo validamos que se halla introducido una descripcion , la foto es opcional
+    return formKey.currentState!.validate();
+  }
+
+  void save() {
+    formKey.currentState!.save();
+    widget.entityModel.pathImagen = imagen!.path;
   }
 }

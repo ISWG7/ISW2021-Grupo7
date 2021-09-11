@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
+import 'package:tp_isw/helpers/PedidoAnyController.dart';
 import 'package:tp_isw/widgets/FormTarjeta.dart';
 
 import 'FormEfectivo.dart';
 
 class FormaPago extends StatefulWidget {
   final PedidoAnyEntity entityModel;
-  final GlobalKey<FormState> formkey;
+  final PedidoAnyController controller;
 
-  const FormaPago({Key? key, required this.entityModel, required this.formkey})
+  const FormaPago(
+      {Key? key, required this.entityModel, required this.controller})
       : super(key: key);
 
   @override
@@ -35,7 +37,8 @@ class _FormaPagoState extends State<FormaPago> {
             );
 
     Widget card = Card(
-      child: Column( mainAxisSize: MainAxisSize.min,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
@@ -46,7 +49,10 @@ class _FormaPagoState extends State<FormaPago> {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text("El coste  total de su pedido es de \$150 - HARDCODEADO"  ,style: Theme.of(context).textTheme.headline6,),
+            child: Text(
+              "El coste  total de su pedido es de \$150 - HARDCODEADO",
+              style: Theme.of(context).textTheme.headline6,
+            ),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -86,9 +92,25 @@ class _FormaPagoState extends State<FormaPago> {
 
     return (mostrarCard)
         ? card
-        : (forma == "Efectivo")
-            ? FormularioEfectivo(
-                formkey: widget.formkey, entityModel: widget.entityModel)
-            : FormTarjeta(formKey: widget.formkey);
+        : Column(
+            children: [
+              (forma == "Efectivo")
+                  ? FormularioEfectivo(
+                      entityModel: widget.entityModel,
+                      controller: widget.controller,
+                    )
+                  : Expanded(
+                      child: FormTarjeta(
+                      entity: widget.entityModel,
+                      controller: widget.controller,
+                    )),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                    onPressed: () => this.setState(() => mostrarCard = true),
+                    child: Text("Cambiar metodo de pago")),
+              )
+            ],
+          );
   }
 }

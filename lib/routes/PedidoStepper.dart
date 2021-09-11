@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
+import 'package:tp_isw/helpers/PedidoAnyController.dart';
 import 'package:tp_isw/widgets/CardFormaPago.dart';
 import 'package:tp_isw/widgets/FormularioAny_Desc.dart';
 import 'package:tp_isw/widgets/FormularioAny_Direccion.dart';
@@ -17,17 +18,24 @@ class _PedidoStepperState extends State<PedidoStepper> {
   // Lista con los Pasos del stepper
   late List<Widget> steps;
 
-  // Key de los forms, usado para validar
-  List<GlobalKey<FormState>> formKeys = [
-    GlobalKey<FormState>(),
+  //Controlleres de , usado para validar y salvar
+  final List<GlobalKey<FormState>> formKeys = [
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
     GlobalKey<FormState>()
   ];
 
-  // Variables donde voy guardando el progreso del stepper
+  final List<PedidoAnyController> controllers = [
+    PedidoAnyController(),
+    PedidoAnyController(),
+    PedidoAnyController(),
+    PedidoAnyController(),
+    PedidoAnyController(),
+    PedidoAnyController()
+  ];
 
+  // Variables donde voy guardando el progreso del stepper
 
   // Modelo de datos , en donde voy a guardar los cambios
   // se lo mando a los formularios para que lo completen;
@@ -42,7 +50,7 @@ class _PedidoStepperState extends State<PedidoStepper> {
   }
 
   int activeStep = 0; // El step activo;
-
+  bool steppingEnabled = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,32 +61,64 @@ class _PedidoStepperState extends State<PedidoStepper> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            IconStepper(
-              nextButtonIcon: Icon(Icons.forward_outlined),
-              previousButtonIcon: Icon(
-                Icons.forward_outlined,
-                textDirection: TextDirection.rtl,
+            // TODO CAmbiarlo por un builder
+            SizedBox(
+              width: 300,
+              child: IconStepper(
+                enableNextPreviousButtons: false,
+                alignment: Alignment.centerLeft,
+
+                // TODO Ver si lo dejamos en true ( y que saltee pasos )
+                //  o en false ( con bug de que se puede hacer click y no pasa nada )
+                steppingEnabled: true,
+                nextButtonIcon: Icon(Icons.forward_outlined),
+                previousButtonIcon: Icon(
+                  Icons.forward_outlined,
+                  textDirection: TextDirection.rtl,
+                ),
+                stepReachedAnimationEffect: Curves.bounceOut,
+                stepReachedAnimationDuration: Duration(seconds: 1),
+                stepColor: Colors.amber.shade200,
+                activeStepColor: Colors.pink.shade300,
+                icons: [
+                  Icon(Icons.description_outlined),
+                  Icon(Icons.location_on_outlined),
+                  Icon(Icons.home_outlined),
+                  Icon(Icons.map),
+                  Icon(Icons.payment_outlined),
+                  Icon(Icons.access_time_outlined)
+                ],
+                direction: Axis.horizontal,
+                activeStep: activeStep,
+                onStepReached: (index) => setState(() => activeStep = index),
               ),
-              stepReachedAnimationEffect: Curves.bounceOut,
-              stepReachedAnimationDuration: Duration(seconds: 1),
-              stepColor: Colors.amber.shade200,
-              activeStepColor: Colors.pink.shade300,
-              icons: [
-                Icon(Icons.description_outlined),
-                Icon(Icons.location_on_outlined),
-                Icon(Icons.home_outlined),
-                Icon(Icons.map),
-                Icon(Icons.payment_outlined),
-                Icon(Icons.access_time_outlined)
-              ],
-              direction: Axis.horizontal,
-              activeStep: activeStep,
-              onStepReached: (index) => setState(() => activeStep = index),
             ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Center(child: content(activeStep)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: back,
+                    icon: Icon(
+                      Icons.forward_outlined,
+                      textDirection: TextDirection.rtl,
+                    ),
+                    label: Text("Atras"),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: next,
+                    icon: Icon(Icons.forward_outlined),
+                    label: Text("Siguiente"),
+                  ),
+                ],
               ),
             )
           ],
@@ -96,35 +136,54 @@ class _PedidoStepperState extends State<PedidoStepper> {
       return Text("Error");
   }
 
-  void asdf() {}
+  void next() {
+    if (activeStep < steps.length) {
+      if (controllers[activeStep].validate()) {
+        controllers[activeStep].save();
+        setState(() {
+          activeStep++;
+        });
+      }
+    }
+  }
+
+  void back() {
+    if (activeStep > 0) {
+      setState(() {
+        activeStep--;
+      });
+    }
+  }
 
   void crearWidgetsSteps() {
     final formdesc = FormularioAnythingDesc(
-      formkey: formKeys[0],
       entityModel: entity,
-    );
-    final formdirec = FormularioAnythingDireccion(
-      formkey: formKeys[1],
-      entityModel: entity,
-      title: "¿ A donde lo vamos a buscar ?",
-    );
-    final formdirec2 = FormularioAnythingDireccion(
-      formkey: formKeys[2],
-      entityModel: entity,
-      title: "¿ A donde lo entregamos ?",
+      controller: controllers[0],
     );
 
-    final Widget formaPago =
-        FormaPago(entityModel: entity, formkey: formKeys[3],);
+    final formRetiro = FormularioDireccion(
+      key: GlobalKey(debugLabel: "1"),
+      controller: controllers[1],
+      entityModel: entity,
+      esEntrega: false,
+    );
+    final formEntrega = FormularioDireccion(
+      key: GlobalKey(debugLabel: "2"),
+      controller: controllers[2],
+      entityModel: entity,
+      esEntrega: true,
+    );
 
-    final Widget horaPicker = HoraEntrega();
+    final Widget formaPago = FormaPago(
+      entityModel: entity,
+      controller: controllers[3],
+    );
 
-    steps = [
-      formdesc,
-      formdirec,
-      formdirec2,
-      formaPago,
-      horaPicker
-    ];
+    final Widget horaPicker = HoraEntrega(
+      entity: entity,
+      controller: controllers[4],
+    );
+
+    steps = [formdesc, formRetiro, formEntrega, formaPago, horaPicker];
   }
 }
