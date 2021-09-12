@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tp_isw/entities/DireccionEntity.dart';
+import 'package:tp_isw/entities/LatLongEntity.dart';
 
 import 'TarjetaCreditoEntity.dart';
 
@@ -18,6 +19,9 @@ class PedidoAnyEntity {
   bool? entregaProgramada;
   String? fechaEntrega;
   String? horarioEntrega;
+  LatLongEntity? entregaLatLong ;
+  LatLongEntity? retiroLatLong;
+
 
   PedidoAnyEntity(
       {this.descripcion,
@@ -29,7 +33,7 @@ class PedidoAnyEntity {
       this.tarjeta,
       this.entregaProgramada,
       this.fechaEntrega,
-      this.horarioEntrega});
+      this.horarioEntrega , this.entregaLatLong , this.retiroLatLong});
 
   factory PedidoAnyEntity.fromJson(Map<String, dynamic> data) =>
       _$PedidoAnyEntityFromJson(data);

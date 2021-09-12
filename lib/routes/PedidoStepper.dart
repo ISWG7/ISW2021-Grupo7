@@ -3,9 +3,11 @@ import 'package:im_stepper/stepper.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
 import 'package:tp_isw/helpers/PedidoAnyController.dart';
 import 'package:tp_isw/widgets/CardFormaPago.dart';
+import 'package:tp_isw/widgets/FlutterMap.dart';
 import 'package:tp_isw/widgets/FormularioAny_Desc.dart';
 import 'package:tp_isw/widgets/FormularioAny_Direccion.dart';
 import 'package:tp_isw/widgets/HoraEntrega.dart';
+
 
 class PedidoStepper extends StatefulWidget {
   const PedidoStepper({Key? key}) : super(key: key);
@@ -184,6 +186,10 @@ class _PedidoStepperState extends State<PedidoStepper> {
       controller: controllers[4],
     );
 
-    steps = [formdesc, formRetiro, formEntrega, formaPago, horaPicker];
+    final Widget map = Map(controller: controllers[5],entity: entity,);
+
+
+
+    steps = [formdesc, formRetiro, formEntrega, formaPago, horaPicker,map ];
   }
 }

@@ -25,6 +25,13 @@ PedidoAnyEntity _$PedidoAnyEntityFromJson(Map<String, dynamic> json) {
     entregaProgramada: json['entregaProgramada'] as bool?,
     fechaEntrega: json['fechaEntrega'] as String?,
     horarioEntrega: json['horarioEntrega'] as String?,
+    entregaLatLong: json['entregaLatLong'] == null
+        ? null
+        : LatLongEntity.fromJson(
+            json['entregaLatLong'] as Map<String, dynamic>),
+    retiroLatLong: json['retiroLatLong'] == null
+        ? null
+        : LatLongEntity.fromJson(json['retiroLatLong'] as Map<String, dynamic>),
   );
 }
 
@@ -40,4 +47,6 @@ Map<String, dynamic> _$PedidoAnyEntityToJson(PedidoAnyEntity instance) =>
       'entregaProgramada': instance.entregaProgramada,
       'fechaEntrega': instance.fechaEntrega,
       'horarioEntrega': instance.horarioEntrega,
+      'entregaLatLong': instance.entregaLatLong?.toJson(),
+      'retiroLatLong': instance.retiroLatLong?.toJson(),
     };
