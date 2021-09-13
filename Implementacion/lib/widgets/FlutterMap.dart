@@ -7,6 +7,8 @@ import 'package:tp_isw/entities/LatLongEntity.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
 import 'package:tp_isw/helpers/PedidoAnyController.dart';
 
+import 'ZoomButtonsPlugin.dart';
+
 class Map extends StatefulWidget {
   PedidoAnyController controller;
   PedidoAnyEntity entity;
@@ -31,7 +33,6 @@ class MapState extends State<Map> {
     widget.controller.save = save;
 
     initMarkers();
-
   }
 
   @override
@@ -68,12 +69,27 @@ class MapState extends State<Map> {
             options: MapOptions(
                 center: LatLng(-31.4135, -64.18105),
                 zoom: 13.0,
+                plugins: [
+                  ZoomButtonsPlugin(),
+                ],
                 onTap: _handleTap),
             layers: [
               TileLayerOptions(
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
               ),
-              MarkerLayerOptions(markers: markers.values.toList())
+              MarkerLayerOptions(markers: markers.values.toList()),
+              PolylineLayerOptions(polylines: [
+                // TODO AGRGAR AQUI LAS RUTAS
+              ]),
+            ],
+            nonRotatedLayers: [
+              ZoomButtonsPluginOption(
+                minZoom: 4,
+                maxZoom: 19,
+                mini: true,
+                padding: 10,
+                alignment: Alignment.bottomRight,
+              ),
             ],
           ),
         ),

@@ -37,6 +37,9 @@ dependencies:
   flutter_rounded_date_picker: ^2.0.2
   universal_ui: ^0.0.8
   flutter_map: ^0.13.1
+  firebase_core: "^1.6.0"
+  cloud_firestore: "^2.5.2"
+
 
 dev_dependencies:
   json_serializable: ^4.1.0

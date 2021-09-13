@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:tp_isw/FirebaseServices/firestore.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
 import 'package:tp_isw/helpers/PedidoAnyController.dart';
 import 'package:tp_isw/widgets/CardFormaPago.dart';
@@ -7,7 +9,6 @@ import 'package:tp_isw/widgets/FlutterMap.dart';
 import 'package:tp_isw/widgets/FormularioAny_Desc.dart';
 import 'package:tp_isw/widgets/FormularioAny_Direccion.dart';
 import 'package:tp_isw/widgets/HoraEntrega.dart';
-
 
 class PedidoStepper extends StatefulWidget {
   const PedidoStepper({Key? key}) : super(key: key);
@@ -134,8 +135,9 @@ class _PedidoStepperState extends State<PedidoStepper> {
   Widget content(int activeStep) {
     if (activeStep < steps.length) {
       return steps[activeStep];
-    } else
-      return Text("Error");
+    }
+    FirestoreService.instance.createPedidoAnything(entity);
+    return Container();
   }
 
   void next() {
@@ -178,18 +180,25 @@ class _PedidoStepperState extends State<PedidoStepper> {
 
     final Widget formaPago = FormaPago(
       entityModel: entity,
+      controller: controllers[4],
+    );
+    final Widget map = Map(
       controller: controllers[3],
+      entity: entity,
     );
 
     final Widget horaPicker = HoraEntrega(
       entity: entity,
-      controller: controllers[4],
+      controller: controllers[5],
     );
 
-    final Widget map = Map(controller: controllers[5],entity: entity,);
-
-
-
-    steps = [formdesc, formRetiro, formEntrega, formaPago, horaPicker,map ];
+    steps = [
+      formdesc,
+      formRetiro,
+      formEntrega,
+      map,
+      formaPago,
+      horaPicker,
+    ];
   }
 }

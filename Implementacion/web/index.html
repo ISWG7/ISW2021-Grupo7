@@ -40,7 +40,25 @@
       });
     }
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+  <!-- Firebase Configuration -->
+  <script>
+      var firebaseConfig = {
+  apiKey: "AIzaSyBkAx16B3xUniarW5c5JSbcH8hbDKfLS_Q",
+  authDomain: "iswgrupo7.firebaseapp.com",
+  projectId: "iswgrupo7",
+  storageBucket: "iswgrupo7.appspot.com",
+  messagingSenderId: "70730819985",
+  appId: "1:70730819985:web:8218eef8d1abe70cc4d230"
+};
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
