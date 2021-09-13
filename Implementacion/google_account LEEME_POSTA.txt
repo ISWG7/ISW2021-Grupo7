@@ -1,0 +1,7 @@
+user isw.g7.2021@gmail.com
+passwd iswadmin
+
+
+para ver como impactan los cambios en la BD 
+entrar a Firebase console -> firestore
+
