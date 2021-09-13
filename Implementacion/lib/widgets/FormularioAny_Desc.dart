@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tp_isw/FirebaseServices/CloudStorage.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
 import 'package:tp_isw/helpers/PedidoAnyController.dart';
 
@@ -44,7 +45,6 @@ class FormularioAnythingDescState extends State<FormularioAnythingDesc> {
     super.didUpdateWidget(oldWidget);
     widget.controller.validate = validate;
     widget.controller.save = save;
-
   }
 
   @override
@@ -79,15 +79,17 @@ class FormularioAnythingDescState extends State<FormularioAnythingDesc> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SizedBox(
-          width: 200,
-          height: 300,
+          height: 250,
           child: DecoratedBox(
             decoration: BoxDecoration(
                 border: Border.all(width: 5.0, color: Colors.pink.shade400),
                 borderRadius: BorderRadius.all(Radius.circular(12.0))),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.network(imagen!.path),
+              padding: const EdgeInsets.all(12.0),
+              child: Image.network(
+                imagen!.path,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ),
@@ -130,8 +132,13 @@ class FormularioAnythingDescState extends State<FormularioAnythingDesc> {
     return formKey.currentState!.validate();
   }
 
-  void save() {
+  Future<void> save() async {
     formKey.currentState!.save();
-    widget.entityModel.pathImagen = imagen!.path;
+    widget.entityModel.pathImagen = imagen!.name;
+
+    // // Guardar en cloud
+    CloudStorageService service = CloudStorageService.instance;
+    var data = await imagen!.readAsBytes();
+    service.uploadData(data, imagen!.mimeType!, imagen!.name);
   }
 }
