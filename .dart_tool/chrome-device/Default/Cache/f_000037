@@ -1,0 +1,645 @@
+define(['dart_sdk', 'packages/flutter/src/painting/basic_types.dart', 'packages/flutter/src/animation/curves.dart', 'packages/flutter/src/painting/alignment.dart', 'packages/im_stepper/src/first_stepper/core/base_stepper.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/widgets/icon.dart'], (function load__packages__im_stepper__src__first_stepper__icon_stepper_dart(dart_sdk, packages__flutter__src__painting__basic_types$46dart, packages__flutter__src__animation__curves$46dart, packages__flutter__src__painting__alignment$46dart, packages__im_stepper__src__first_stepper__core__base_stepper$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__widgets__icon$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const basic_types = packages__flutter__src__painting__basic_types$46dart.src__painting__basic_types;
+  const curves = packages__flutter__src__animation__curves$46dart.src__animation__curves;
+  const alignment = packages__flutter__src__painting__alignment$46dart.src__painting__alignment;
+  const base_stepper = packages__im_stepper__src__first_stepper__core__base_stepper$46dart.src__first_stepper__core__base_stepper;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const icon = packages__flutter__src__widgets__icon$46dart.src__widgets__icon;
+  var icon_stepper = Object.create(dart.library);
+  var $length = dartx.length;
+  var $_get = dartx._get;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    ListOfIcon: () => (T.ListOfIcon = dart.constFn(core.List$(icon.Icon)))(),
+    intToIcon: () => (T.intToIcon = dart.constFn(dart.fnType(icon.Icon, [core.int])))()
+  };
+  var T$Eval = Object.assign({
+    _: () => T$Eval
+  }, T);
+  var S = {
+    _: () => S
+  };
+  var S$Eval = Object.assign({
+    _: () => S$Eval
+  }, S);
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: basic_types.Axis.prototype,
+        [_name]: "Axis.horizontal",
+        index: 0
+      });
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: curves._BounceOutCurve.prototype
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 1000000
+      });
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: alignment.Alignment.prototype,
+        [Alignment_y]: 0,
+        [Alignment_x]: 0
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 7,
+        [_Location_line]: 106,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "nextPreviousButtonsDisabled",
+        [_Location_column]: 7,
+        [_Location_line]: 107,
+        [_Location_file]: null
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "stepTappingDisabled",
+        [_Location_column]: 7,
+        [_Location_line]: 108,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "previousButtonIcon",
+        [_Location_column]: 7,
+        [_Location_line]: 109,
+        [_Location_file]: null
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "nextButtonIcon",
+        [_Location_column]: 7,
+        [_Location_line]: 110,
+        [_Location_file]: null
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onStepReached",
+        [_Location_column]: 7,
+        [_Location_line]: 111,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "direction",
+        [_Location_column]: 7,
+        [_Location_line]: 112,
+        [_Location_file]: null
+      });
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "stepColor",
+        [_Location_column]: 7,
+        [_Location_line]: 113,
+        [_Location_file]: null
+      });
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "activeStepColor",
+        [_Location_column]: 7,
+        [_Location_line]: 114,
+        [_Location_file]: null
+      });
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "activeStepBorderColor",
+        [_Location_column]: 7,
+        [_Location_line]: 115,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "activeStepBorderWidth",
+        [_Location_column]: 7,
+        [_Location_line]: 116,
+        [_Location_file]: null
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "lineColor",
+        [_Location_column]: 7,
+        [_Location_line]: 117,
+        [_Location_file]: null
+      });
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "lineLength",
+        [_Location_column]: 7,
+        [_Location_line]: 118,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "lineDotRadius",
+        [_Location_column]: 7,
+        [_Location_line]: 119,
+        [_Location_file]: null
+      });
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "stepRadius",
+        [_Location_column]: 7,
+        [_Location_line]: 120,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "stepReachedAnimationEffect",
+        [_Location_column]: 7,
+        [_Location_line]: 121,
+        [_Location_file]: null
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "stepReachedAnimationDuration",
+        [_Location_column]: 7,
+        [_Location_line]: 122,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "steppingEnabled",
+        [_Location_column]: 7,
+        [_Location_line]: 123,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "margin",
+        [_Location_column]: 7,
+        [_Location_line]: 124,
+        [_Location_file]: null
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 7,
+        [_Location_line]: 125,
+        [_Location_file]: null
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "scrollingDisabled",
+        [_Location_column]: 7,
+        [_Location_line]: 126,
+        [_Location_file]: null
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "activeStep",
+        [_Location_column]: 7,
+        [_Location_line]: 127,
+        [_Location_file]: null
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "alignment",
+        [_Location_column]: 7,
+        [_Location_line]: 128,
+        [_Location_file]: null
+      });
+    },
+    get C5() {
+      return C[5] = dart.constList([C[6] || CT.C6, C[7] || CT.C7, C[8] || CT.C8, C[9] || CT.C9, C[10] || CT.C10, C[11] || CT.C11, C[12] || CT.C12, C[13] || CT.C13, C[14] || CT.C14, C[15] || CT.C15, C[16] || CT.C16, C[17] || CT.C17, C[18] || CT.C18, C[19] || CT.C19, C[20] || CT.C20, C[21] || CT.C21, C[22] || CT.C22, C[23] || CT.C23, C[24] || CT.C24, C[25] || CT.C25, C[26] || CT.C26, C[27] || CT.C27, C[28] || CT.C28], widget_inspector._Location);
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[5] || CT.C5,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 105,
+        [_Location_file]: "file:///F:/Flutter/flutter_windows_1.22.6-stable/flutter/.pub-cache/hosted/pub.dartlang.org/im_stepper-0.1.3/lib/src/first_stepper/icon_stepper.dart"
+      });
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 23,
+        [_Location_line]: 136,
+        [_Location_file]: null
+      });
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 9,
+        [_Location_line]: 137,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 9,
+        [_Location_line]: 138,
+        [_Location_file]: null
+      });
+    },
+    get C30() {
+      return C[30] = dart.constList([C[31] || CT.C31, C[32] || CT.C32, C[33] || CT.C33], widget_inspector._Location);
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[30] || CT.C30,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 135,
+        [_Location_file]: "file:///F:/Flutter/flutter_windows_1.22.6-stable/flutter/.pub-cache/hosted/pub.dartlang.org/im_stepper-0.1.3/lib/src/first_stepper/icon_stepper.dart"
+      });
+    }
+  }, false);
+  var C = Array(34).fill(void 0);
+  var I = [
+    "file:///F:/Flutter/flutter_windows_1.22.6-stable/flutter/.pub-cache/hosted/pub.dartlang.org/im_stepper-0.1.3/lib/src/first_stepper/icon_stepper.dart",
+    "package:im_stepper/src/first_stepper/icon_stepper.dart"
+  ];
+  var icons$ = dart.privateName(icon_stepper, "IconStepper.icons");
+  var enableNextPreviousButtons$ = dart.privateName(icon_stepper, "IconStepper.enableNextPreviousButtons");
+  var enableStepTapping$ = dart.privateName(icon_stepper, "IconStepper.enableStepTapping");
+  var previousButtonIcon$ = dart.privateName(icon_stepper, "IconStepper.previousButtonIcon");
+  var nextButtonIcon$ = dart.privateName(icon_stepper, "IconStepper.nextButtonIcon");
+  var onStepReached$ = dart.privateName(icon_stepper, "IconStepper.onStepReached");
+  var direction$ = dart.privateName(icon_stepper, "IconStepper.direction");
+  var stepColor$ = dart.privateName(icon_stepper, "IconStepper.stepColor");
+  var stepPadding$ = dart.privateName(icon_stepper, "IconStepper.stepPadding");
+  var activeStepColor$ = dart.privateName(icon_stepper, "IconStepper.activeStepColor");
+  var activeStepBorderColor$ = dart.privateName(icon_stepper, "IconStepper.activeStepBorderColor");
+  var activeStepBorderWidth$ = dart.privateName(icon_stepper, "IconStepper.activeStepBorderWidth");
+  var activeStepBorderPadding$ = dart.privateName(icon_stepper, "IconStepper.activeStepBorderPadding");
+  var lineColor$ = dart.privateName(icon_stepper, "IconStepper.lineColor");
+  var lineLength$ = dart.privateName(icon_stepper, "IconStepper.lineLength");
+  var lineDotRadius$ = dart.privateName(icon_stepper, "IconStepper.lineDotRadius");
+  var stepRadius$ = dart.privateName(icon_stepper, "IconStepper.stepRadius");
+  var stepReachedAnimationEffect$ = dart.privateName(icon_stepper, "IconStepper.stepReachedAnimationEffect");
+  var stepReachedAnimationDuration$ = dart.privateName(icon_stepper, "IconStepper.stepReachedAnimationDuration");
+  var steppingEnabled$ = dart.privateName(icon_stepper, "IconStepper.steppingEnabled");
+  var scrollingDisabled$ = dart.privateName(icon_stepper, "IconStepper.scrollingDisabled");
+  var activeStep$ = dart.privateName(icon_stepper, "IconStepper.activeStep");
+  var alignment$ = dart.privateName(icon_stepper, "IconStepper.alignment");
+  var _name = dart.privateName(basic_types, "_name");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  var Alignment_y = dart.privateName(alignment, "Alignment.y");
+  var Alignment_x = dart.privateName(alignment, "Alignment.x");
+  var _iconsWithSizeOverridden = dart.privateName(icon_stepper, "_iconsWithSizeOverridden");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  icon_stepper.IconStepper = class IconStepper extends framework.StatelessWidget {
+    get icons() {
+      return this[icons$];
+    }
+    set icons(value) {
+      super.icons = value;
+    }
+    get enableNextPreviousButtons() {
+      return this[enableNextPreviousButtons$];
+    }
+    set enableNextPreviousButtons(value) {
+      super.enableNextPreviousButtons = value;
+    }
+    get enableStepTapping() {
+      return this[enableStepTapping$];
+    }
+    set enableStepTapping(value) {
+      super.enableStepTapping = value;
+    }
+    get previousButtonIcon() {
+      return this[previousButtonIcon$];
+    }
+    set previousButtonIcon(value) {
+      super.previousButtonIcon = value;
+    }
+    get nextButtonIcon() {
+      return this[nextButtonIcon$];
+    }
+    set nextButtonIcon(value) {
+      super.nextButtonIcon = value;
+    }
+    get onStepReached() {
+      return this[onStepReached$];
+    }
+    set onStepReached(value) {
+      super.onStepReached = value;
+    }
+    get direction() {
+      return this[direction$];
+    }
+    set direction(value) {
+      super.direction = value;
+    }
+    get stepColor() {
+      return this[stepColor$];
+    }
+    set stepColor(value) {
+      super.stepColor = value;
+    }
+    get stepPadding() {
+      return this[stepPadding$];
+    }
+    set stepPadding(value) {
+      super.stepPadding = value;
+    }
+    get activeStepColor() {
+      return this[activeStepColor$];
+    }
+    set activeStepColor(value) {
+      super.activeStepColor = value;
+    }
+    get activeStepBorderColor() {
+      return this[activeStepBorderColor$];
+    }
+    set activeStepBorderColor(value) {
+      super.activeStepBorderColor = value;
+    }
+    get activeStepBorderWidth() {
+      return this[activeStepBorderWidth$];
+    }
+    set activeStepBorderWidth(value) {
+      super.activeStepBorderWidth = value;
+    }
+    get activeStepBorderPadding() {
+      return this[activeStepBorderPadding$];
+    }
+    set activeStepBorderPadding(value) {
+      super.activeStepBorderPadding = value;
+    }
+    get lineColor() {
+      return this[lineColor$];
+    }
+    set lineColor(value) {
+      super.lineColor = value;
+    }
+    get lineLength() {
+      return this[lineLength$];
+    }
+    set lineLength(value) {
+      super.lineLength = value;
+    }
+    get lineDotRadius() {
+      return this[lineDotRadius$];
+    }
+    set lineDotRadius(value) {
+      super.lineDotRadius = value;
+    }
+    get stepRadius() {
+      return this[stepRadius$];
+    }
+    set stepRadius(value) {
+      super.stepRadius = value;
+    }
+    get stepReachedAnimationEffect() {
+      return this[stepReachedAnimationEffect$];
+    }
+    set stepReachedAnimationEffect(value) {
+      super.stepReachedAnimationEffect = value;
+    }
+    get stepReachedAnimationDuration() {
+      return this[stepReachedAnimationDuration$];
+    }
+    set stepReachedAnimationDuration(value) {
+      super.stepReachedAnimationDuration = value;
+    }
+    get steppingEnabled() {
+      return this[steppingEnabled$];
+    }
+    set steppingEnabled(value) {
+      super.steppingEnabled = value;
+    }
+    get scrollingDisabled() {
+      return this[scrollingDisabled$];
+    }
+    set scrollingDisabled(value) {
+      super.scrollingDisabled = value;
+    }
+    get activeStep() {
+      return this[activeStep$];
+    }
+    set activeStep(value) {
+      super.activeStep = value;
+    }
+    get alignment() {
+      return this[alignment$];
+    }
+    set alignment(value) {
+      super.alignment = value;
+    }
+    build(context) {
+      if (context == null) dart.nullFailed(I[0], 104, 29, "context");
+      return new base_stepper.BaseStepper.new({children: this[_iconsWithSizeOverridden](), nextPreviousButtonsDisabled: this.enableNextPreviousButtons, stepTappingDisabled: this.enableStepTapping, previousButtonIcon: this.previousButtonIcon, nextButtonIcon: this.nextButtonIcon, onStepReached: this.onStepReached, direction: this.direction, stepColor: this.stepColor, activeStepColor: this.activeStepColor, activeStepBorderColor: this.activeStepBorderColor, activeStepBorderWidth: this.activeStepBorderWidth, lineColor: this.lineColor, lineLength: this.lineLength, lineDotRadius: this.lineDotRadius, stepRadius: this.stepRadius, stepReachedAnimationEffect: this.stepReachedAnimationEffect, stepReachedAnimationDuration: this.stepReachedAnimationDuration, steppingEnabled: this.steppingEnabled, margin: this.activeStepBorderPadding, padding: this.stepPadding, scrollingDisabled: this.scrollingDisabled, activeStep: this.activeStep, alignment: this.alignment, $creationLocationd_0dea112b090073317d4: C[4] || CT.C4});
+    }
+    [_iconsWithSizeOverridden]() {
+      return T.ListOfIcon().generate(dart.nullCheck(this.icons)[$length], dart.fn(index => {
+        if (index == null) dart.nullFailed(I[0], 134, 42, "index");
+        return new icon.Icon.new(dart.nullCheck(this.icons)[$_get](index).icon, {color: dart.nullCheck(this.icons)[$_get](index).color, size: dart.notNull(this.stepRadius) * 1.2, $creationLocationd_0dea112b090073317d4: C[29] || CT.C29});
+      }, T.intToIcon()));
+    }
+  };
+  (icon_stepper.IconStepper.new = function(opts) {
+    let icons = opts && 'icons' in opts ? opts.icons : null;
+    let enableNextPreviousButtons = opts && 'enableNextPreviousButtons' in opts ? opts.enableNextPreviousButtons : true;
+    if (enableNextPreviousButtons == null) dart.nullFailed(I[0], 79, 10, "enableNextPreviousButtons");
+    let enableStepTapping = opts && 'enableStepTapping' in opts ? opts.enableStepTapping : true;
+    if (enableStepTapping == null) dart.nullFailed(I[0], 80, 10, "enableStepTapping");
+    let previousButtonIcon = opts && 'previousButtonIcon' in opts ? opts.previousButtonIcon : null;
+    let nextButtonIcon = opts && 'nextButtonIcon' in opts ? opts.nextButtonIcon : null;
+    let onStepReached = opts && 'onStepReached' in opts ? opts.onStepReached : null;
+    let direction = opts && 'direction' in opts ? opts.direction : C[0] || CT.C0;
+    if (direction == null) dart.nullFailed(I[0], 84, 10, "direction");
+    let stepColor = opts && 'stepColor' in opts ? opts.stepColor : null;
+    let stepPadding = opts && 'stepPadding' in opts ? opts.stepPadding : 1;
+    if (stepPadding == null) dart.nullFailed(I[0], 86, 10, "stepPadding");
+    let activeStepColor = opts && 'activeStepColor' in opts ? opts.activeStepColor : null;
+    let activeStepBorderColor = opts && 'activeStepBorderColor' in opts ? opts.activeStepBorderColor : null;
+    let activeStepBorderWidth = opts && 'activeStepBorderWidth' in opts ? opts.activeStepBorderWidth : 0.5;
+    if (activeStepBorderWidth == null) dart.nullFailed(I[0], 89, 10, "activeStepBorderWidth");
+    let activeStepBorderPadding = opts && 'activeStepBorderPadding' in opts ? opts.activeStepBorderPadding : 5;
+    if (activeStepBorderPadding == null) dart.nullFailed(I[0], 90, 10, "activeStepBorderPadding");
+    let lineColor = opts && 'lineColor' in opts ? opts.lineColor : null;
+    let lineLength = opts && 'lineLength' in opts ? opts.lineLength : 50;
+    if (lineLength == null) dart.nullFailed(I[0], 92, 10, "lineLength");
+    let lineDotRadius = opts && 'lineDotRadius' in opts ? opts.lineDotRadius : 1;
+    if (lineDotRadius == null) dart.nullFailed(I[0], 93, 10, "lineDotRadius");
+    let stepRadius = opts && 'stepRadius' in opts ? opts.stepRadius : 24;
+    if (stepRadius == null) dart.nullFailed(I[0], 94, 10, "stepRadius");
+    let stepReachedAnimationEffect = opts && 'stepReachedAnimationEffect' in opts ? opts.stepReachedAnimationEffect : C[1] || CT.C1;
+    if (stepReachedAnimationEffect == null) dart.nullFailed(I[0], 95, 10, "stepReachedAnimationEffect");
+    let stepReachedAnimationDuration = opts && 'stepReachedAnimationDuration' in opts ? opts.stepReachedAnimationDuration : C[2] || CT.C2;
+    if (stepReachedAnimationDuration == null) dart.nullFailed(I[0], 96, 10, "stepReachedAnimationDuration");
+    let steppingEnabled = opts && 'steppingEnabled' in opts ? opts.steppingEnabled : true;
+    if (steppingEnabled == null) dart.nullFailed(I[0], 97, 10, "steppingEnabled");
+    let scrollingDisabled = opts && 'scrollingDisabled' in opts ? opts.scrollingDisabled : false;
+    if (scrollingDisabled == null) dart.nullFailed(I[0], 98, 10, "scrollingDisabled");
+    let activeStep = opts && 'activeStep' in opts ? opts.activeStep : 0;
+    if (activeStep == null) dart.nullFailed(I[0], 99, 10, "activeStep");
+    let alignment = opts && 'alignment' in opts ? opts.alignment : C[3] || CT.C3;
+    if (alignment == null) dart.nullFailed(I[0], 100, 10, "alignment");
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[icons$] = icons;
+    this[enableNextPreviousButtons$] = enableNextPreviousButtons;
+    this[enableStepTapping$] = enableStepTapping;
+    this[previousButtonIcon$] = previousButtonIcon;
+    this[nextButtonIcon$] = nextButtonIcon;
+    this[onStepReached$] = onStepReached;
+    this[direction$] = direction;
+    this[stepColor$] = stepColor;
+    this[stepPadding$] = stepPadding;
+    this[activeStepColor$] = activeStepColor;
+    this[activeStepBorderColor$] = activeStepBorderColor;
+    this[activeStepBorderWidth$] = activeStepBorderWidth;
+    this[activeStepBorderPadding$] = activeStepBorderPadding;
+    this[lineColor$] = lineColor;
+    this[lineLength$] = lineLength;
+    this[lineDotRadius$] = lineDotRadius;
+    this[stepRadius$] = stepRadius;
+    this[stepReachedAnimationEffect$] = stepReachedAnimationEffect;
+    this[stepReachedAnimationDuration$] = stepReachedAnimationDuration;
+    this[steppingEnabled$] = steppingEnabled;
+    this[scrollingDisabled$] = scrollingDisabled;
+    this[activeStep$] = activeStep;
+    this[alignment$] = alignment;
+    icon_stepper.IconStepper.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = icon_stepper.IconStepper.prototype;
+  dart.addTypeTests(icon_stepper.IconStepper);
+  dart.addTypeCaches(icon_stepper.IconStepper);
+  dart.setMethodSignature(icon_stepper.IconStepper, () => ({
+    __proto__: dart.getMethods(icon_stepper.IconStepper.__proto__),
+    build: dart.fnType(framework.Widget, [framework.BuildContext]),
+    [_iconsWithSizeOverridden]: dart.fnType(core.List$(icon.Icon), [])
+  }));
+  dart.setLibraryUri(icon_stepper.IconStepper, I[1]);
+  dart.setFieldSignature(icon_stepper.IconStepper, () => ({
+    __proto__: dart.getFields(icon_stepper.IconStepper.__proto__),
+    icons: dart.finalFieldType(dart.nullable(core.List$(icon.Icon))),
+    enableNextPreviousButtons: dart.finalFieldType(core.bool),
+    enableStepTapping: dart.finalFieldType(core.bool),
+    previousButtonIcon: dart.finalFieldType(dart.nullable(icon.Icon)),
+    nextButtonIcon: dart.finalFieldType(dart.nullable(icon.Icon)),
+    onStepReached: dart.finalFieldType(dart.nullable(dart.fnType(dart.void, [core.int]))),
+    direction: dart.finalFieldType(basic_types.Axis),
+    stepColor: dart.finalFieldType(dart.nullable(ui.Color)),
+    stepPadding: dart.finalFieldType(core.double),
+    activeStepColor: dart.finalFieldType(dart.nullable(ui.Color)),
+    activeStepBorderColor: dart.finalFieldType(dart.nullable(ui.Color)),
+    activeStepBorderWidth: dart.finalFieldType(core.double),
+    activeStepBorderPadding: dart.finalFieldType(core.double),
+    lineColor: dart.finalFieldType(dart.nullable(ui.Color)),
+    lineLength: dart.finalFieldType(core.double),
+    lineDotRadius: dart.finalFieldType(core.double),
+    stepRadius: dart.finalFieldType(core.double),
+    stepReachedAnimationEffect: dart.finalFieldType(curves.Curve),
+    stepReachedAnimationDuration: dart.finalFieldType(core.Duration),
+    steppingEnabled: dart.finalFieldType(core.bool),
+    scrollingDisabled: dart.finalFieldType(core.bool),
+    activeStep: dart.finalFieldType(core.int),
+    alignment: dart.finalFieldType(alignment.AlignmentGeometry)
+  }));
+  dart.trackLibraries("packages/im_stepper/src/first_stepper/icon_stepper.dart", {
+    "package:im_stepper/src/first_stepper/icon_stepper.dart": icon_stepper
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["icon_stepper.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAOoB;;;;;;IAGP;;;;;;IAGA;;;;;;IAGC;;;;;;IAGA;;;;;;IAGS;;;;;;IAGV;;;;;;IAGE;;;;;;IAGA;;;;;;IAGA;;;;;;IAGA;;;;;;IAGA;;;;;;IAGA;;;;;;IAGA;;;;;;IAGA;;;;;;IAGA;;;;;;IAGA;;;;;;IAGD;;;;;;IAGG;;;;;;IAGJ;;;;;;IAGA;;;;;;IAGD;;;;;;IAGc;;;;;;;UA8BE;AACxB,YAAO,6CACK,+DACmB,qDACR,4CACD,yCACJ,oCACD,+BACJ,2BACA,iCACM,6CACM,mDACA,uCACZ,4BACC,gCACG,gCACH,6CACgB,+DACE,oDACb,8BACT,uCACC,qCACU,oCACP,4BACD;IAEf;;AAIE,YAAY,yBAAc,AAAE,eAAP,sBAAe;YAAC;AACnC,cAAO,mBACA,AAAC,AAAQ,eAAd,mBAAO,KAAK,gBACA,AAAC,AAAQ,eAAd,mBAAO,KAAK,eACF,aAAX,mBAAa;;IAGzB;;;QA/DO;QACA;;QACA;;QACA;QACA;QACA;QACA;;QACA;QACA;;QACA;QACA;QACA;;QACA;;QACA;QACA;;QACA;;QACA;;QACA;;QACA;;QACA;;QACA;;QACA;;QACA;;;IAtBA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;IACA;AAvBP;;EAwBE","file":"../../../../../../../../../../packages/im_stepper/src/first_stepper/icon_stepper.dart.lib.js"}');
+  // Exports:
+  return {
+    src__first_stepper__icon_stepper: icon_stepper
+  };
+}));
+
+//# sourceMappingURL=icon_stepper.dart.lib.js.map
