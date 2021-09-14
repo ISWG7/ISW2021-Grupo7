@@ -3,8 +3,10 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:mapbox_api/mapbox_api.dart';
 import 'package:tp_isw/entities/LatLongEntity.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
+import 'package:tp_isw/entities/PolylineExe.dart';
 import 'package:tp_isw/helpers/PedidoAnyController.dart';
 
 import 'ZoomButtonsPlugin.dart';
@@ -25,6 +27,7 @@ class MapState extends State<Map> {
   // posicion 0 para retiro , 1 para entrega
   HashMap<String, Marker> markers = HashMap();
   bool entregaBtnPressed = false;
+  late List<LatLng> route;
 
   @override
   void initState() {
@@ -37,6 +40,8 @@ class MapState extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
+    print(' build , la ruta es $route');
+
     final Widget entregaBtn = ElevatedButton.icon(
         label: Text("Entrega"),
         icon: Icon(Icons.home),
@@ -61,6 +66,7 @@ class MapState extends State<Map> {
               Text('Selecciona los puntos de entrega en el mapa'),
               entregaBtn,
               retiroBtn,
+              ElevatedButton(onPressed: calcularRuta, child: Text("Calcular"))
             ],
           ),
         ),
@@ -68,7 +74,7 @@ class MapState extends State<Map> {
           child: FlutterMap(
             options: MapOptions(
                 center: LatLng(-31.4135, -64.18105),
-                zoom: 13.0,
+                zoom: 12.0,
                 plugins: [
                   ZoomButtonsPlugin(),
                 ],
@@ -78,9 +84,12 @@ class MapState extends State<Map> {
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
               ),
               MarkerLayerOptions(markers: markers.values.toList()),
-              PolylineLayerOptions(polylines: [
-                // TODO AGRGAR AQUI LAS RUTAS
-              ]),
+              PolylineLayerOptions(
+                polylines: [
+                   Polyline(
+                      points: route, strokeWidth: 4.0, color: Colors.purple),
+                ],
+              ),
             ],
             nonRotatedLayers: [
               ZoomButtonsPluginOption(
@@ -117,12 +126,51 @@ class MapState extends State<Map> {
         : setState(() {
             markers["Retiro"] = newMarker;
           });
+
+    //Despues de hacer click en el mapa , si estan ambos puntos dibujo la ruta
+    if (markers.containsKey("Entrega") && markers.containsKey("Retiro")) {
+      calcularRuta();
+    }
   }
 
   void _entregaPressed() {
     setState(() {
       entregaBtnPressed = true;
     });
+  }
+
+  Future<void> calcularRuta() async {
+    final mapbox = MapboxApi(
+      accessToken:
+          'pk.eyJ1IjoiZXhlc2FsaW5hcyIsImEiOiJja3RqYnI2emcxYWszMnZxamc2d2QxMXoyIn0.oeISkE7ZpPSoWciocmOcMQ',
+    );
+    final response = await mapbox.directions.request(
+      profile: NavigationProfile.DRIVING_TRAFFIC,
+      overview: NavigationOverview.FULL,
+      geometries: NavigationGeometries.POLYLINE6,
+      steps: true,
+      coordinates: <List<double>>[
+        <double>[
+          markers["Entrega"]!.point.latitude,
+          markers["Entrega"]!.point.longitude
+        ],
+        <double>[
+          markers["Retiro"]!.point.latitude,
+          markers["Retiro"]!.point.longitude
+        ],
+      ],
+    );
+
+    final route = response.routes![0];
+
+    // final cordsDouble = PolylineExe.fromJson(route.geometry).coordinates;
+    // final cords = cordsDouble.map((par) => LatLng(par[0], par[1])).toList();
+    print('distancia = ${route.distance}');
+    print ('Ruta de respuesta = ${route.geometry}');
+    // print('$cords');
+    // this.setState(() {
+    //   this.route = cords;
+    // });
   }
 
   void _retiroPressed() {
@@ -150,6 +198,8 @@ class MapState extends State<Map> {
   }
 
   void initMarkers() {
+    route = <LatLng>[];
+
     var entregaLatLong = widget.entity.entregaLatLong;
     if (entregaLatLong != null) {
       markers["Entrega"] = Marker(
