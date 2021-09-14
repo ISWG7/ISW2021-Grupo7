@@ -27,8 +27,9 @@ class MapState extends State<Map> {
   // TODO mover esto a un enum
   // [Entrega] y [Retiro]
   HashMap<String, Marker> markers = HashMap();
-  bool entregaBtnPressed = false;
-  late List<LatLng> route;
+  bool entregaBtnPressed = true;
+  List<LatLng> route =[];
+  double distanciaTotal = 0;
 
   @override
   void initState() {
@@ -41,7 +42,6 @@ class MapState extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
-    print(' build , la ruta es $route');
 
     final Widget entregaBtn = ElevatedButton.icon(
         label: Text("Entrega"),
@@ -67,7 +67,7 @@ class MapState extends State<Map> {
               Text('Selecciona los puntos de entrega en el mapa'),
               entregaBtn,
               retiroBtn,
-              ElevatedButton(onPressed: calcularRuta, child: Text("Calcular"))
+              Text("Distancia Total $distanciaTotal metros")
             ],
           ),
         ),
@@ -142,10 +142,12 @@ class MapState extends State<Map> {
   }
 
   Future<void> calcularRuta() async {
+
     // si falta algun marcador no hacer nada
-    if (!markers.containsKey("Entrega") && !markers.containsKey("Retiro")) {
+    if (!markers.containsKey("Entrega") || !markers.containsKey("Retiro")) {
       return;
     }
+
     final mapbox = MapboxApi(
       accessToken:
           'pk.eyJ1IjoiZXhlc2FsaW5hcyIsImEiOiJja3RqYnI2emcxYWszMnZxamc2d2QxMXoyIn0.oeISkE7ZpPSoWciocmOcMQ',
@@ -167,19 +169,16 @@ class MapState extends State<Map> {
         ],
       ],
     );
-
     final route = response.routes![0];
-
-    print('distancia = ${route.distance}');
-    print('Ruta de respuesta = ${route.geometry}');
-
     final result = decodePolyline(route.geometry);
-    print('$result');
     final cords = result
         .map((par) => LatLng(par[0].toDouble(), par[1].toDouble()))
         .toList();
-    print('$cords');
+
+
+    // seteamos la ruta y la distancia total
     this.setState(() {
+      this.distanciaTotal = route.distance??0;
       this.route = cords;
     });
   }
@@ -231,7 +230,7 @@ class MapState extends State<Map> {
         ),
       );
 
-      route = [];
+
       calcularRuta();
     }
   }
