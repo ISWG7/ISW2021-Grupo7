@@ -2,11 +2,11 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:google_polyline_algorithm/google_polyline_algorithm.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mapbox_api/mapbox_api.dart';
 import 'package:tp_isw/entities/LatLongEntity.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
-import 'package:tp_isw/entities/PolylineExe.dart';
 import 'package:tp_isw/helpers/PedidoAnyController.dart';
 
 import 'ZoomButtonsPlugin.dart';
@@ -24,7 +24,8 @@ class Map extends StatefulWidget {
 }
 
 class MapState extends State<Map> {
-  // posicion 0 para retiro , 1 para entrega
+  // TODO mover esto a un enum
+  // [Entrega] y [Retiro]
   HashMap<String, Marker> markers = HashMap();
   bool entregaBtnPressed = false;
   late List<LatLng> route;
@@ -83,13 +84,16 @@ class MapState extends State<Map> {
               TileLayerOptions(
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
               ),
-              MarkerLayerOptions(markers: markers.values.toList()),
               PolylineLayerOptions(
                 polylines: [
-                   Polyline(
-                      points: route, strokeWidth: 4.0, color: Colors.purple),
+                  Polyline(
+                    points: route,
+                    strokeWidth: 4.0,
+                    color: Colors.purple,
+                  ),
                 ],
               ),
+              MarkerLayerOptions(markers: markers.values.toList()),
             ],
             nonRotatedLayers: [
               ZoomButtonsPluginOption(
@@ -127,10 +131,8 @@ class MapState extends State<Map> {
             markers["Retiro"] = newMarker;
           });
 
-    //Despues de hacer click en el mapa , si estan ambos puntos dibujo la ruta
-    if (markers.containsKey("Entrega") && markers.containsKey("Retiro")) {
-      calcularRuta();
-    }
+    //Despues de hacer click en el mapa , trato de dibujar la ruta
+    calcularRuta();
   }
 
   void _entregaPressed() {
@@ -140,14 +142,19 @@ class MapState extends State<Map> {
   }
 
   Future<void> calcularRuta() async {
+    // si falta algun marcador no hacer nada
+    if (!markers.containsKey("Entrega") && !markers.containsKey("Retiro")) {
+      return;
+    }
     final mapbox = MapboxApi(
       accessToken:
           'pk.eyJ1IjoiZXhlc2FsaW5hcyIsImEiOiJja3RqYnI2emcxYWszMnZxamc2d2QxMXoyIn0.oeISkE7ZpPSoWciocmOcMQ',
     );
     final response = await mapbox.directions.request(
+      // TODO REVISAR DRIVIN G NOORMAL O TRAFIC
       profile: NavigationProfile.DRIVING_TRAFFIC,
       overview: NavigationOverview.FULL,
-      geometries: NavigationGeometries.POLYLINE6,
+      geometries: NavigationGeometries.POLYLINE,
       steps: true,
       coordinates: <List<double>>[
         <double>[
@@ -163,14 +170,18 @@ class MapState extends State<Map> {
 
     final route = response.routes![0];
 
-    // final cordsDouble = PolylineExe.fromJson(route.geometry).coordinates;
-    // final cords = cordsDouble.map((par) => LatLng(par[0], par[1])).toList();
     print('distancia = ${route.distance}');
-    print ('Ruta de respuesta = ${route.geometry}');
-    // print('$cords');
-    // this.setState(() {
-    //   this.route = cords;
-    // });
+    print('Ruta de respuesta = ${route.geometry}');
+
+    final result = decodePolyline(route.geometry);
+    print('$result');
+    final cords = result
+        .map((par) => LatLng(par[0].toDouble(), par[1].toDouble()))
+        .toList();
+    print('$cords');
+    this.setState(() {
+      this.route = cords;
+    });
   }
 
   void _retiroPressed() {
@@ -198,8 +209,6 @@ class MapState extends State<Map> {
   }
 
   void initMarkers() {
-    route = <LatLng>[];
-
     var entregaLatLong = widget.entity.entregaLatLong;
     if (entregaLatLong != null) {
       markers["Entrega"] = Marker(
@@ -221,6 +230,9 @@ class MapState extends State<Map> {
           child: Icon(Icons.delivery_dining),
         ),
       );
+
+      route = [];
+      calcularRuta();
     }
   }
 }
