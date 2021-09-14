@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tp_isw/entities/DireccionEntity.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
 import 'package:tp_isw/helpers/PedidoAnyController.dart';
@@ -42,6 +43,7 @@ class _FormularioDireccionState extends State<FormularioDireccion> {
   @override
   Widget build(BuildContext context) {
     Widget referencia = TextFormField(
+
       keyboardType: TextInputType.multiline,
       maxLines: 3,
       controller: _referenciaController,
@@ -68,6 +70,9 @@ class _FormularioDireccionState extends State<FormularioDireccion> {
 
     Widget numero = TextFormField(
       keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       controller: _numeroController,
       decoration: InputDecoration(
           border: OutlineInputBorder(),

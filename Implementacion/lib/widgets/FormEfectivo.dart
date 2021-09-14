@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tp_isw/entities/PedidoAnyEntity.dart';
 import 'package:tp_isw/helpers/PedidoAnyController.dart';
 
@@ -21,6 +22,9 @@ class FormularioEfectivo extends StatelessWidget {
     Widget abonaField = TextFormField(
       keyboardType: TextInputType.number,
       controller: _abonaController,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Ej: \$650',

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:im_stepper/stepper.dart';
@@ -63,41 +65,58 @@ class _PedidoStepperState extends State<PedidoStepper> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // TODO CAmbiarlo por un builder
             SizedBox(
-              width: 400,
-              child: IconStepper(
-                enableNextPreviousButtons: false,
-                alignment: Alignment.centerLeft,
-                steppingEnabled: steppingEnabled,
-                nextButtonIcon: Icon(Icons.forward_outlined),
-                previousButtonIcon: Icon(
-                  Icons.forward_outlined,
-                  textDirection: TextDirection.rtl,
-                ),
-                stepReachedAnimationEffect: Curves.bounceOut,
-                stepReachedAnimationDuration: Duration(seconds: 1),
-                stepColor: Color(0xFFB9FAF8),
-                activeStepColor:Color(0xFFB9FAF8) ,
-                activeStepBorderWidth: 4,
-                activeStepBorderColor: Colors.orangeAccent,
-                icons: [
-                  Icon(Icons.description_outlined),
-                  Icon(Icons.location_on_outlined),
-                  Icon(Icons.home_outlined),
-                  Icon(Icons.map),
-                  Icon(Icons.payment_outlined),
-                  Icon(Icons.access_time_outlined)
+              height: 150,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                      flex: 2,
+                      child: Image.asset(
+                          r"lib/assets/Tamaño grande/Logo2_Grande_V2.png")),
+                  Flexible(
+                    flex: 3,
+                    child: IconStepper(
+                      enableNextPreviousButtons: false,
+                      alignment: Alignment.centerLeft,
+                      steppingEnabled: steppingEnabled,
+                      nextButtonIcon: Icon(Icons.forward_outlined),
+                      previousButtonIcon: Icon(
+                        Icons.forward_outlined,
+                        textDirection: TextDirection.rtl,
+                      ),
+                      stepReachedAnimationEffect: Curves.bounceOut,
+                      stepReachedAnimationDuration: Duration(seconds: 1),
+                      stepColor: Color(0xFFB9FAF8),
+                      activeStepColor: Color(0xFFB9FAF8),
+                      activeStepBorderWidth: 4,
+                      activeStepBorderColor: Colors.orangeAccent,
+                      icons: [
+                        Icon(Icons.description_outlined),
+                        Icon(Icons.location_on_outlined),
+                        Icon(Icons.home_outlined),
+                        Icon(Icons.map),
+                        Icon(Icons.payment_outlined),
+                        Icon(Icons.access_time_outlined)
+                      ],
+                      direction: Axis.horizontal,
+                      activeStep: activeStep,
+                      onStepReached: (index) =>
+                          setState(() => activeStep = index),
+                    ),
+                  ),
+                  Flexible(child: Text(" Paso $activeStep / ${steps.length - 1 }" , style: Theme.of(context).textTheme.headline6,))
                 ],
-                direction: Axis.horizontal,
-                activeStep: activeStep,
-                onStepReached: (index) => setState(() => activeStep = index),
               ),
             ),
+
+            // TODO CAmbiarlo por un builder
+
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Center(child: content(activeStep)),
               ),
             ),
@@ -135,8 +154,19 @@ class _PedidoStepperState extends State<PedidoStepper> {
     if (activeStep < steps.length) {
       return steps[activeStep];
     }
-    FirestoreService.instance.createPedidoAnything(entity);
-    return Container();
+
+    return Column(
+      children: [
+        Flexible( flex : 3,child: Image.asset(r'lib/assets/Tamaño grande/Logo4_Grande_V2.png')),
+        Flexible( flex: 2,
+          child: Text(
+            "Pedido Enviado",
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline2,
+          ),
+        )
+      ],
+    );
   }
 
   void next() {
@@ -147,6 +177,9 @@ class _PedidoStepperState extends State<PedidoStepper> {
           activeStep++;
         });
       }
+    } else {
+      FirestoreService.instance.createPedidoAnything(entity);
+      Navigator.of(context).pop();
     }
   }
 

@@ -18,7 +18,7 @@ class FormaPago extends StatefulWidget {
 }
 
 class _FormaPagoState extends State<FormaPago> {
-  static const COSTOXMETRO = 0.5;
+  static const COSTOXMETRO = 0.07;
   static const COSTO_INTERUBANO = 500;
   static const COSTO_ESTANDAR = 300;
 
@@ -40,7 +40,6 @@ class _FormaPagoState extends State<FormaPago> {
   Widget build(BuildContext context) {
     final TextStyle _textStyle =
         Theme.of(context).textTheme.headline3!.copyWith(
-              height: 26,
               color: Colors.white,
               fontWeight: FontWeight.w800,
             );
@@ -61,7 +60,7 @@ class _FormaPagoState extends State<FormaPago> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              "El coste  total de su pedido es de $costo",
+              "El coste  total de su pedido es de ${costo.toStringAsFixed(2)}",
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
@@ -71,41 +70,43 @@ class _FormaPagoState extends State<FormaPago> {
             visible: interciudad,
           ),
           Visibility(
-            child:
-                Text("Este envio se esta facturando por metro a $COSTOXMETRO"),
+            child: Text(
+                "Este envio se esta facturando por metro a $COSTOXMETRO \$x"),
             visible: cobroPorMetro,
           ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  onPressed: () => this.setState(() {
-                    forma = text1;
-                    mostrarCard = false;
-                  }),
-                  child: Text(
-                    text1,
-                    style: _textStyle,
+          Flexible(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    onPressed: () => this.setState(() {
+                      forma = text1;
+                      mostrarCard = false;
+                    }),
+                    child: Text(
+                      text1,
+                      style: _textStyle,
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  onPressed: () => this.setState(() {
-                    forma = text2;
-                    mostrarCard = false;
-                  }),
-                  child: Text(
-                    text2,
-                    style: _textStyle,
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    onPressed: () => this.setState(() {
+                      forma = text2;
+                      mostrarCard = false;
+                    }),
+                    child: Text(
+                      text2,
+                      style: _textStyle,
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ],
       ),
@@ -139,7 +140,7 @@ class _FormaPagoState extends State<FormaPago> {
     // si se especifico la distancia con el mapa entonces se cobra por metro
     if (widget.entityModel.distancia != null) {
       setState(() {
-        costo = widget.entityModel.distancia! * COSTOXMETRO;
+        costo = (widget.entityModel.distancia! * COSTOXMETRO);
         cobroPorMetro = true;
       });
     } else {
