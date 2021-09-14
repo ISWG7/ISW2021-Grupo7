@@ -27,8 +27,13 @@ class _MyAppState extends State<MyApp> {
             // supportedLocales: [const Locale('es','ARG')],
             title: 'Flutter Demo',
             theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
+                primaryColor: Color(0xFFA663CC),
+                accentColor: Color(0xFFA663CC),
+                buttonColor: Color(0xFFB9FAF8),
+                elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF6F2DBD),
+                ))),
             home: Container(color: Colors.amber, child: PedidoStepper()),
           );
         }

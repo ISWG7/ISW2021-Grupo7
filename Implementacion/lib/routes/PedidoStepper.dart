@@ -53,7 +53,7 @@ class _PedidoStepperState extends State<PedidoStepper> {
   }
 
   int activeStep = 0; // El step activo;
-  bool steppingEnabled = false;
+  bool steppingEnabled = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,14 +66,11 @@ class _PedidoStepperState extends State<PedidoStepper> {
           children: [
             // TODO CAmbiarlo por un builder
             SizedBox(
-              width: 300,
+              width: 400,
               child: IconStepper(
                 enableNextPreviousButtons: false,
                 alignment: Alignment.centerLeft,
-
-                // TODO Ver si lo dejamos en true ( y que saltee pasos )
-                //  o en false ( con bug de que se puede hacer click y no pasa nada )
-                steppingEnabled: true,
+                steppingEnabled: steppingEnabled,
                 nextButtonIcon: Icon(Icons.forward_outlined),
                 previousButtonIcon: Icon(
                   Icons.forward_outlined,
@@ -81,8 +78,10 @@ class _PedidoStepperState extends State<PedidoStepper> {
                 ),
                 stepReachedAnimationEffect: Curves.bounceOut,
                 stepReachedAnimationDuration: Duration(seconds: 1),
-                stepColor: Colors.amber.shade200,
-                activeStepColor: Colors.pink.shade300,
+                stepColor: Color(0xFFB9FAF8),
+                activeStepColor:Color(0xFFB9FAF8) ,
+                activeStepBorderWidth: 4,
+                activeStepBorderColor: Colors.orangeAccent,
                 icons: [
                   Icon(Icons.description_outlined),
                   Icon(Icons.location_on_outlined),

@@ -47,8 +47,8 @@ class _HoraEntregaState extends State<HoraEntrega> {
 
   @override
   Widget build(BuildContext context) {
-    final colorSeleccionado = Colors.deepPurpleAccent;
-    final colorNoSeleccionado = Colors.deepPurpleAccent.shade100;
+    final colorSeleccionado = Color(0xFF6F2DBD);
+    final colorNoSeleccionado = Color(0xFFB298DC);
     Widget entregarAhora = ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
           primary: (programarEntrega == null)
@@ -82,7 +82,7 @@ class _HoraEntregaState extends State<HoraEntrega> {
             lastDate: ultimoDiaSeleccionable,
             textPositiveButton: "Aceptar",
             textNegativeButton: "Cancelar",
-            theme: ThemeData(primarySwatch: Colors.blue),
+            theme: ThemeData(primaryColor: Color(0xFFA663CC), accentColor:Color(0xFFB9FAF8) ),
             //TODO
             // imageHeader: AssetImage("assets/images/calendar_header.jpg"),
             description: "Elige un dia para que realizemos la entrega."
@@ -141,7 +141,7 @@ class _HoraEntregaState extends State<HoraEntrega> {
             SnackBar(
               content: Text(
                   "Programada entrega para el ${diaSeleccionado.day}/${diaSeleccionado.month}"
-                  " a las ${_time.hour}: ${_time.minute}"),
+                  " a las ${_time.hour} : ${_time.minute}"),
             ),
           );
         },

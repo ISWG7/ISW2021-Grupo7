@@ -18,25 +18,35 @@ class FormaPago extends StatefulWidget {
 }
 
 class _FormaPagoState extends State<FormaPago> {
+  static const COSTOXMETRO = 0.5;
+  static const COSTO_INTERUBANO = 500;
+  static const COSTO_ESTANDAR = 300;
+
   final String text1 = "Efectivo";
   final String text2 = "Tarjeta";
+  double costo = 0;
+  bool cobroPorMetro = false;
+  bool interciudad = false;
   late String forma;
   bool mostrarCard = true;
 
   @override
   void initState() {
     super.initState();
+    calcularCosto();
   }
 
   @override
   Widget build(BuildContext context) {
     final TextStyle _textStyle =
         Theme.of(context).textTheme.headline3!.copyWith(
+              height: 26,
               color: Colors.white,
               fontWeight: FontWeight.w800,
             );
 
     Widget card = Card(
+      elevation: 8.0,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -45,14 +55,25 @@ class _FormaPagoState extends State<FormaPago> {
             child: Text(
               "Como desea abonar su pedido",
               style: Theme.of(context).textTheme.headline4,
+              textAlign: TextAlign.center,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              "El coste  total de su pedido es de \$150 - HARDCODEADO",
+              "El coste  total de su pedido es de $costo",
               style: Theme.of(context).textTheme.headline6,
             ),
+          ),
+          Visibility(
+            child: Text(
+                "Este es un envio Interurbano sin especificar ubicaciones. Tiene Recargo"),
+            visible: interciudad,
+          ),
+          Visibility(
+            child:
+                Text("Este envio se esta facturando por metro a $COSTOXMETRO"),
+            visible: cobroPorMetro,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -112,5 +133,26 @@ class _FormaPagoState extends State<FormaPago> {
               )
             ],
           );
+  }
+
+  void calcularCosto() {
+    // si se especifico la distancia con el mapa entonces se cobra por metro
+    if (widget.entityModel.distancia != null) {
+      setState(() {
+        costo = widget.entityModel.distancia! * COSTOXMETRO;
+        cobroPorMetro = true;
+      });
+    } else {
+      // si no simplemente se cobra por una entrega en misma ciudad
+      setState(() => costo = COSTO_ESTANDAR.floorToDouble());
+      //si las ciudades son distintas  y no se esepecifico se cobra un plus
+      if (widget.entityModel.entrega!.ciudad !=
+          widget.entityModel.retiro!.ciudad) {
+        setState(() {
+          costo = costo + COSTO_INTERUBANO;
+          interciudad = true;
+        });
+      }
+    }
   }
 }

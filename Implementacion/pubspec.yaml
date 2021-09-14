@@ -35,13 +35,11 @@ dependencies:
   day_night_time_picker: ^1.0.3+1
   image_picker: ^0.8.4
   flutter_rounded_date_picker: ^2.0.2
-  universal_ui: ^0.0.8
   flutter_map: ^0.13.1
   firebase_core: "^1.6.0"
   cloud_firestore: "^2.5.2"
   firebase_storage: "^10.0.3"
   mapbox_api: ^1.0.0
-  flutter_polyline_points: ^1.0.0
   google_polyline_algorithm: ^3.1.0
 
 

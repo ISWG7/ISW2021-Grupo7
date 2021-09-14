@@ -19,8 +19,9 @@ class PedidoAnyEntity {
   bool? entregaProgramada;
   String? fechaEntrega;
   String? horarioEntrega;
-  LatLongEntity? entregaLatLong ;
+  LatLongEntity? entregaLatLong;
   LatLongEntity? retiroLatLong;
+  double? distancia;
 
 
   PedidoAnyEntity(
@@ -33,7 +34,10 @@ class PedidoAnyEntity {
       this.tarjeta,
       this.entregaProgramada,
       this.fechaEntrega,
-      this.horarioEntrega , this.entregaLatLong , this.retiroLatLong});
+      this.horarioEntrega,
+      this.entregaLatLong,
+      this.retiroLatLong,
+      this.distancia});
 
   factory PedidoAnyEntity.fromJson(Map<String, dynamic> data) =>
       _$PedidoAnyEntityFromJson(data);

@@ -32,6 +32,7 @@ PedidoAnyEntity _$PedidoAnyEntityFromJson(Map<String, dynamic> json) {
     retiroLatLong: json['retiroLatLong'] == null
         ? null
         : LatLongEntity.fromJson(json['retiroLatLong'] as Map<String, dynamic>),
+    distancia: (json['distancia'] as num?)?.toDouble(),
   );
 }
 
@@ -49,4 +50,5 @@ Map<String, dynamic> _$PedidoAnyEntityToJson(PedidoAnyEntity instance) =>
       'horarioEntrega': instance.horarioEntrega,
       'entregaLatLong': instance.entregaLatLong?.toJson(),
       'retiroLatLong': instance.retiroLatLong?.toJson(),
+      'distancia': instance.distancia,
     };

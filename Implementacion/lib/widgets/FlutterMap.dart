@@ -28,7 +28,7 @@ class MapState extends State<Map> {
   // [Entrega] y [Retiro]
   HashMap<String, Marker> markers = HashMap();
   bool entregaBtnPressed = true;
-  List<LatLng> route =[];
+  List<LatLng> route = [];
   double distanciaTotal = 0;
 
   @override
@@ -42,7 +42,6 @@ class MapState extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
-
     final Widget entregaBtn = ElevatedButton.icon(
         label: Text("Entrega"),
         icon: Icon(Icons.home),
@@ -59,12 +58,16 @@ class MapState extends State<Map> {
 
     return Column(
       children: [
+        Text(
+          'Selecciona los puntos de entrega en el mapa',
+          style: Theme.of(context).textTheme.headline4,
+          textAlign: TextAlign.center,
+        ),
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Selecciona los puntos de entrega en el mapa'),
               entregaBtn,
               retiroBtn,
               Text("Distancia Total $distanciaTotal metros")
@@ -142,7 +145,6 @@ class MapState extends State<Map> {
   }
 
   Future<void> calcularRuta() async {
-
     // si falta algun marcador no hacer nada
     if (!markers.containsKey("Entrega") || !markers.containsKey("Retiro")) {
       return;
@@ -175,10 +177,9 @@ class MapState extends State<Map> {
         .map((par) => LatLng(par[0].toDouble(), par[1].toDouble()))
         .toList();
 
-
     // seteamos la ruta y la distancia total
     this.setState(() {
-      this.distanciaTotal = route.distance??0;
+      this.distanciaTotal = route.distance ?? 0;
       this.route = cords;
     });
   }
@@ -205,6 +206,9 @@ class MapState extends State<Map> {
           markers["Retiro"]!.point.latitude,
           markers["Retiro"]!.point.longitude);
     }
+    if (markers.containsKey("Retiro") && markers.containsKey("Entrega")) {
+      widget.entity.distancia = distanciaTotal;
+    }
   }
 
   void initMarkers() {
@@ -229,7 +233,6 @@ class MapState extends State<Map> {
           child: Icon(Icons.delivery_dining),
         ),
       );
-
 
       calcularRuta();
     }
