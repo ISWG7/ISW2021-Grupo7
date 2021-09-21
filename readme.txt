@@ -1,7 +1,11 @@
 # ISW2021-Grupo6
 Repositorio de soporte al cursado de ISW 2021 - Segundo Cuatrimestre
 
-Integrantes: Pérez, Leonardo - 81295 - fenixi1234567890@gmail.com Salinas Luciano Exequiel - 73212 - exesalinas393@gmail.com , Brizuela Marcelo Ismael - 53756 - marcelo.brizuela468@gmail.com, Medina Juan Cruz - 80405 - Juancruzfaq@gmail.com, Perez Leonardo Federico - 81295 - fenixi1234567890@gmail.com
+Integrantes: 
++ Pérez, Leonardo  - 81295 - fenixi1234567890@gmail.com,
++ Salinas Luciano Exequiel - 73212 - exesalinas393@gmail.com, 
++ Brizuela Marcelo Ismael - 53756 - marcelo.brizuela468@gmail.com, 
++ Medina Juan Cruz - 80405 - Juancruzfaq@gmail.com
 
 En el siguiente repositorio se encontraran tópicos acerca de la materia Ingeniería de Software de la carrera de Ingeniería en Sistemas dictada por la Universidad Tecnológica Nacional Facultad Regional Córdoba.
 
