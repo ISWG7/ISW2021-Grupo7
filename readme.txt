@@ -3,7 +3,7 @@ Repositorio de soporte al cursado de ISW 2021 - Segundo Cuatrimestre
 
 Integrantes: 
 + Pérez, Leonardo  - 81295 - fenixi1234567890@gmail.com,
-+ Salinas Luciano Exequiel - 73212 - exesalinas393@gmail.com, 
+
 + Brizuela Marcelo Ismael - 53756 - marcelo.brizuela468@gmail.com, 
 + Medina Juan Cruz - 80405 - Juancruzfaq@gmail.com
 
